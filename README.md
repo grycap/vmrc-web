@@ -1,4 +1,4 @@
-vmrc-web: A Web GUI for  VMRC
+vmrc-web: A Web GUI for VMRC
 ========
 
 <!-- language: lang-none -->
@@ -24,11 +24,10 @@ that satisfy a given set of hard (must) requirements and soft (should) requireme
 
 Current version: 2.1.2
 
-This repository only includes the VMRC client. Additional packages available are:
+This repository only includes the VMRC web client. Additional packages available are:
   - [vmrc](http://github.com/grycap/vmrc) (The server-side part of the Repository & Catalog of VMIs)
 
-You will require a running instance of the VMRC service to compile this code and to connect from this client.
-If you are looking for a pre-compiled ready-to-use version of the VMRC client check the [webpage](http://www.grycap.upv.es/vmrc).
+You will require a running instance of the VMRC service to compile this code and to connect from this web client.
 
 1. Features
 ============
