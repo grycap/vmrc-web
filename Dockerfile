@@ -41,7 +41,9 @@ RUN set -x \
 	&& rm bin/*.bat \
 	&& rm tomcat.tar.gz*
 
-# for wmrc
+
+WORKDIR $CATALINA_HOME
+# for vmrc
 RUN git clone https://github.com/grycap/vmrc.git
 
 WORKDIR $CATALINA_HOME/vmrc
@@ -50,7 +52,8 @@ RUN mvn package
 
 RUN cp $CATALINA_HOME/vmrc/target/vmrc.war $CATALINA_HOME/webapps
 
-# for wmrc-web
+WORKDIR $CATALINA_HOME
+# for vmrc-web
 RUN git clone https://github.com/grycap/vmrc-web.git
 
 WORKDIR $CATALINA_HOME/vmrc-web
