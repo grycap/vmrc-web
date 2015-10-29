@@ -41,15 +41,23 @@ RUN set -x \
 	&& rm bin/*.bat \
 	&& rm tomcat.tar.gz*
 
-
-RUN git clone https://github.com/grycap/vmrc-web.git
+# for wmrc
+RUN git clone https://github.com/grycap/vmrc.git
 
 WORKDIR $CATALINA_HOME/vmrc
 
 RUN mvn package
 
 RUN cp $CATALINA_HOME/vmrc/target/vmrc.war $CATALINA_HOME/webapps
-RUN cp $CATALINA_HOME/vmrc/target/vmrc-web-gui.war $CATALINA_HOME/webapps
+
+# for wmrc-web
+RUN git clone https://github.com/grycap/vmrc-web.git
+
+WORKDIR $CATALINA_HOME/vmrc-web
+
+RUN mvn package
+
+RUN cp $CATALINA_HOME/vmrc-web/target/vmrc-web-gui.war $CATALINA_HOME/webapps
 
 EXPOSE 8080
 CMD ["catalina.sh", "run"]
