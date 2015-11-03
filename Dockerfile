@@ -43,6 +43,7 @@ RUN set -x \
 
 
 WORKDIR $CATALINA_HOME
+
 # for vmrc
 RUN git clone https://github.com/grycap/vmrc.git
 
@@ -53,6 +54,14 @@ RUN mvn package
 RUN cp $CATALINA_HOME/vmrc/target/vmrc.war $CATALINA_HOME/webapps
 
 WORKDIR $CATALINA_HOME
+
+# for vmrc-client
+RUN git clone https://github.com/grycap/vmrc-client.git
+
+WORKDIR $CATALINA_HOME/vmrc-client
+
+RUN mvn package
+
 # for vmrc-web
 RUN git clone https://github.com/grycap/vmrc-web.git
 
