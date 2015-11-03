@@ -28,8 +28,6 @@
 			<groupId>org.grycap</groupId>
 			<artifactId>vmrc-client</artifactId>
 			<version>2.1.2</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/vmrc-client.jar</systemPath>
 		</dependency>
 
 		<dependency>
