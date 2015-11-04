@@ -116,102 +116,111 @@
 
 <%
     //Connect to the service
-	VMRCServerAPI vmrcApi;
-	//parameters
-	String current_user_name = "";
+    VMRCServerAPI vmrcApi;
+    //parameters 
+    String current_user_name = "";
     String current_user_pass = "";
     String current_user_host = "http://localhost:8080/vmrc/vmrc";
     String order = request.getParameter("order");
-	List<Vmi> l = null;
-	int totalVM = 0;
-	String error = "";
-	// by session
-	HttpSession objSession = request.getSession(true);
-	String usernameSession = (String) objSession.getAttribute("user");
-	String userpassSession = (String) objSession.getAttribute("password");
-	String userhostSession = (String) objSession.getAttribute("host");
-	// host
-	if (userhostSession != null) {
-		current_user_host = userhostSession;
-	}
-	// by parameter 
-	String usernameAttrib = request.getParameter("userText");
-	String userpassAttrib = request.getParameter("passText"); 
-	String userhostAttrib = request.getParameter("hostText");
-	// host
-	if (userhostAttrib != null) {
-		if ((userhostAttrib.startsWith("http")) && 
-				(userhostAttrib.endsWith("/vmrc/vmrc"))) {
-			current_user_host = userhostAttrib;
-		} else if (userhostAttrib.startsWith("http")) {
+    List<Vmi> l = null;
+    int totalVM = 0;
+    String error = "";
+    // by session
+    HttpSession objSession = request.getSession(true);
+    String usernameSession = (String) objSession.getAttribute("user");
+    String userpassSession = (String) objSession.getAttribute("password");
+    String userhostSession = (String) objSession.getAttribute("host");
+    // host
+    if (userhostSession != null) {
+    	current_user_host = userhostSession;
+    }
+    // by parameter 
+    String usernameAttrib = request.getParameter("userText");
+    String userpassAttrib = request.getParameter("passText"); 
+    String userhostAttrib = request.getParameter("hostText");
+    // host
+    if (userhostAttrib != null) {
+    	if ((userhostAttrib.startsWith("http")) && 
+    		(userhostAttrib.endsWith("/vmrc/vmrc"))) {
+    			current_user_host = userhostAttrib;
+    		} else if (userhostAttrib.startsWith("http")) {
 			current_user_host = userhostAttrib + "/vmrc/vmrc";		
 		} else if (userhostAttrib.endsWith("/vmrc/vmrc")) {
-			current_user_host = userhostAttrib + "/vmrc/vmrc";
+			current_user_host = "http://" + userhostAttrib;
 		} else if (!(userhostAttrib.startsWith("http")) && 
 				(!(userhostAttrib.endsWith("/vmrc/vmrc"))) && 
 				(!(userhostAttrib.equals("")))) { 
 			current_user_host = "http://" + userhostAttrib + "/vmrc/vmrc";
 		}
 	}
+	
 	// connection: System.out.println("host: " + current_user_host);	
 	final URL url = new URL(current_user_host);
-	HttpURLConnection huc = (HttpURLConnection) url.openConnection();
-	int responseCode = huc.getResponseCode();
-	if (responseCode != 404) {
-		// validation
-		if ((usernameAttrib == null) || 
-				(usernameAttrib.equals("null")) || 
-				(usernameAttrib.equals(""))) {		
-			if ((usernameSession == null) || 
-					(usernameSession.equals("null")) || 
-					(usernameSession.equals(""))) {
-				current_user_name = "anonymous";
-				current_user_pass = "";
-				objSession.setAttribute("user", "anonymous");
-			    objSession.setAttribute("password", "");
-			    objSession.setAttribute("host", current_user_host);
-			} else {			 
-				current_user_name = usernameSession;
-				current_user_pass = userpassSession;
-				objSession.setAttribute("user", usernameSession);
-				objSession.setAttribute("password", userpassSession);
-				objSession.setAttribute("host", current_user_host);
-		    }
-		} else {
-			current_user_name = usernameAttrib;
-			current_user_pass = userpassAttrib;
-			objSession.setAttribute("user", usernameAttrib);
-		    objSession.setAttribute("password", userpassAttrib);
-		    objSession.setAttribute("host", current_user_host);
-		}
-		try {
-			vmrcApi = new VMRCServerAPI(current_user_name, 
-					current_user_pass, 
-					current_user_host);
-			// Call corresponding methods in the VMRC service
-			// Adding Vmi in case of...
-			String uservmiiAttrib = request.getParameter("vmiText");
-			if ((uservmiiAttrib != null) && (!(uservmiiAttrib.equals("")))) {
-				vmrcApi.addVMI(uservmiiAttrib); 
-			}		
-			// Getting Vmi availables
-			l = vmrcApi.listVMIs();
-			totalVM = l.size();
-			System.out.println("RESULT: " + l.size() + " indexed VMIs.");
-		} catch (Exception e) {
-			System.err.println("ERROR: " + e.getMessage());
-			current_user_name = "ERROR!";
-			if (e.getMessage().contains("already exists in VMRC")) {
-				error = "ERROR: The given VMI already exists in VMRC."; 
-			} else if (e.getMessage().contains("Unauthorized attempt to perform operation")) {
-				error = "ERROR: The given credential do not have privilege to perform this operation.";
+	HttpURLConnection huc; 
+	try {
+		huc = (HttpURLConnection) url.openConnection();
+		int responseCode = huc.getResponseCode();
+		if (responseCode != 404) {
+			// validation
+			if ((usernameAttrib == null) ||
+					(usernameAttrib.equals("null")) ||
+					(usernameAttrib.equals(""))) {
+				if ((usernameSession == null) ||
+						(usernameSession.equals("null")) ||
+						(usernameSession.equals(""))) {
+					current_user_name = "anonymous";
+					current_user_pass = "";
+					objSession.setAttribute("user", "anonymous");
+					objSession.setAttribute("password", "");
+					objSession.setAttribute("host", current_user_host);
+				} else {
+					current_user_name = usernameSession;
+					current_user_pass = userpassSession;
+					objSession.setAttribute("user", usernameSession);
+					objSession.setAttribute("password", userpassSession);
+					objSession.setAttribute("host", current_user_host);
+				}
 			} else {
-				error = e.getMessage(); 
+				current_user_name = usernameAttrib;
+				current_user_pass = userpassAttrib;
+				objSession.setAttribute("user", usernameAttrib);
+				objSession.setAttribute("password", userpassAttrib);
+				objSession.setAttribute("host", current_user_host);
 			}
+			// vmrc-client
+			try {
+				vmrcApi = new VMRCServerAPI(current_user_name,
+						current_user_pass,
+						current_user_host);
+				// Call corresponding methods in the VMRC service
+				// Adding Vmi in case of...
+				String uservmiiAttrib = request.getParameter("vmiText");
+				if ((uservmiiAttrib != null) && (!(uservmiiAttrib.equals("")))) {
+					vmrcApi.addVMI(uservmiiAttrib);
+				}
+				// Getting Vmi availables
+				l = vmrcApi.listVMIs();
+				totalVM = l.size();
+				System.out.println("RESULT: " + l.size() + " indexed VMIs.");
+			} catch (Exception e) {
+				System.err.println("ERROR: " + e.getMessage());
+				current_user_name = "ERROR!";
+				if (e.getMessage().contains("already exists in VMRC")) {
+					error = "ERROR: The given VMI already exists in VMRC.";
+				} else if (e.getMessage().contains("Unauthorized attempt to perform operation")) {
+					error = "ERROR: The given credential do not have privilege to perform this operation.";
+				} else {
+					error = e.getMessage();
+				} 
+			}
+		} else {
+			current_user_name = "ERROR!";
+			error = "Error connecting to the default VMRC Server at http://localhost:8080. Enter a new one url above.";
 		}
-	} else {
+	} catch (Exception e) {
+		System.err.println("ERROR: " + e.getMessage());
 		current_user_name = "ERROR!";
-		error = "Error connecting to the default VMRC Server at http://localhost:8080. Enter a new one url above.";
+		error = "The given url (" + userhostAttrib + ") could not be reached. "; 
 	}	
 %>
 
