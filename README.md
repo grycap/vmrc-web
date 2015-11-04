@@ -43,20 +43,20 @@ You will require a running instance of the VMRC service and the vmrc-client API 
 
 3. Compilation & Installation
 ================================================
-1. Clone the vmrc-client repository from GitHub
-```
-git clone https://github.com/grycap/vmrc-client.git
-```
-
-2. Make sure that the VMRC Server is up & running and listening at port 8080
-  * This is the default configuration if you followed the instructions when installing VMRC.
-  * During compilation of the client, the service WSDL is dynamically accessed to create some classes.
-
-3. Compile from sources with the command:
-```
-mvn package
-```
-The file $VMRC_CLIENT_LOCATION/target/vmrc-client.jar will be generated.
+ 1. Clone the vmrc-client repository from GitHub
+ ```
+ git clone https://github.com/grycap/vmrc-client.git
+ ```
+ 
+ 2. Make sure that the VMRC Server is up & running and listening at port 8080
+   * This is the default configuration if you followed the instructions when installing VMRC.
+   * During compilation of the client, the service WSDL is dynamically accessed to create some classes.
+ 
+ 3. Compile from sources with the command:
+ ```
+ mvn package
+ ```
+ The file $VMRC_CLIENT_LOCATION/target/vmrc-client.jar will be generated.
 
 4. (Optional) Generate the documentation for the client-side Java API
         mvn javadoc:javadoc
