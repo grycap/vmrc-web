@@ -58,7 +58,7 @@ You will require a running instance of the VMRC service and the vmrc-client API 
  ```
  The file $VMRC_CLIENT_LOCATION/target/vmrc-client.jar will be generated.
 
- 4. Install from sources as a maven dependency: 
+ 4. Install generated jar as a local maven dependency: 
  ```
  mvn install -Dfile=vmrc-client.jar -DgroupId=org.grycap -DartifactId=vmrc-client -Dversion=2.1.2 -Dpackaging=jar
  ```
