@@ -56,7 +56,7 @@ git clone https://github.com/grycap/vmrc-client.git
 ```
 mvn package
 ```
-The file $VMRC_CLIENT_LOCATION/target/vmrc-client.jar will be generated
+The file $VMRC_CLIENT_LOCATION/target/vmrc-client.jar will be generated.
 
 4. (Optional) Generate the documentation for the client-side Java API
         mvn javadoc:javadoc
@@ -76,7 +76,7 @@ git clone https://github.com/grycap/vmrc-web.git
 ```
 mvn package
 ```
-The file $VMRC_WEB_LOCATION/target/vmrc-web-gui.war will be generated
+The file $VMRC_WEB_LOCATION/target/vmrc-web-gui.war will be generated.
 
 8. Deploy vmrc-web-gui.war into Apache Tomcat (simply drop the war file into Tomcat's webapps folder).
 
