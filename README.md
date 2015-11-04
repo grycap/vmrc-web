@@ -38,7 +38,7 @@ You will require a running instance of the VMRC service and the vmrc-client API 
 ===============
 + Java JDK 1.7+
 + Maven (to compile from sources)
-+ Vmrc-client API as a maven dependency
++ The vmrc-client API as a maven dependency
 + Apache Tomcat (to deploy the WAR)
 
 3. Compilation & Installation
