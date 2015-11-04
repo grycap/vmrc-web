@@ -50,7 +50,7 @@ You will require a running instance of the VMRC service and the vmrc-client API 
  
  2. Make sure that the VMRC Server is up & running and listening at `http://your_ip:8080`
    * This is the default configuration if you followed the instructions when installing VMRC.
-   * During compilation of the client, the service WSDL is dynamically accessed to create some classes by taking into account that your_ip is `localhost` otherwise it must be setted in `pom.xml` file.
+   * During compilation of the client, the service WSDL is dynamically accessed to create some classes by taking into account that `your_ip` is `localhost` otherwise it must be setted in `pom.xml` file.
  
  3. Compile from sources with the command:
  ```
