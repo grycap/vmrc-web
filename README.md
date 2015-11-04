@@ -10,7 +10,7 @@ vmrc-web: A Web GUI for VMRC
         \_/     |_____||_____||____| |___|`.____ .'
 
 
- A Virtual Machine Image Repository & Catalog
+A Virtual Machine Image Repository & Catalog
 Developed by the [Grid and High Performance Computing Group (GRyCAP)](http://www.grycap.upv.es) at the
 [Universitat Politècnica de València (UPV)](http://www.upv.es).
 
@@ -26,21 +26,56 @@ Current version: 2.1.2
 
 This repository only includes the VMRC web client. Additional packages available are:
   - [vmrc](http://github.com/grycap/vmrc) (The server-side part of the Repository & Catalog of VMIs)
+  - [vmrc-client](http://github.com/grycap/vmrc-client) (A client-side part of the Repository & Catalog of VMIs)
 
-You will require a running instance of the VMRC service to compile this code and to connect from this web client.
+You will require a running instance of the VMRC service and the vmrc-client API to compile this code and to connect from this web client.
 
 1. Features
 ============
-
++ Web-based GUI to interact with [VMRC](https://www.github.com/grycap/vmrc)
 
 2. Requirements
 ===============
-
++ Java JDK 1.7+
++ Maven (to compile from sources)
++ Vmrc-client API as a maven dependency
++ Apache Tomcat (to deploy the WAR)
 
 3. Compilation & Installation
 ================================================
-
+1. Clone the vmrc-client repository from GitHub
+```
+git clone https://github.com/grycap/vmrc-client.git
+```
+2. Make sure that the VMRC Server is up & running and listening at port 8080
+  * This is the default configuration if you followed the instructions when installing VMRC.
+  * During compilation of the client, the service WSDL is dynamically accessed to create some classes.
+3. Compile from sources with the command:
+```
+mvn package
+```
+The file $VMRC_CLIENT_LOCATION/target/vmrc-client.jar will be generated
+4. (Optional) Generate the documentation for the client-side Java API
+        mvn javadoc:javadoc
+The documentation is generated in the target/site/apidocs folder.
+5. Install from sources as a maven dependency: 
+```
+mvn install -Dfile=vmrc-client.jar -DgroupId=org.grycap -DartifactId=vmrc-client -Dversion=2.1.2 -Dpackaging=jar
+```
+6. Clone the repository from GitHub
+```
+git clone https://github.com/grycap/vmrc-web.git
+```
+7. Compile from sources with the command:
+```
+mvn package
+```
+The file $VMRC_WEB_LOCATION/target/vmrc-web-gui.war will be generated
+8. Deploy vmrc-web-gui.war into Apache Tomcat (simply drop the war file into Tomcat's webapps folder).
+9. Start Apache Tomcat
+  + $TOMCAT_HOME/bin/startup.sh
+10. VMRC web client should be available at http://your_ip:8080/vmrc/vmrc
 
 4. Usage
 ===========
-
+1. You should use the VMRC web client as tool for user and admin to list the VMIs available in the catalog and adding new ones VMIs, considering the user credentials and the Access Control Lists (ACLs) imposed by the VMI owner.
