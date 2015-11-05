@@ -658,7 +658,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<h5 class="text-center text-gray">
-					Copyright Â© 2015, I3M-GRyCAP-UPV, Universitat PolitÃ¨cnica de ValÃ¨ncia - 46022, Valencia, Spain
+					Copyright © 2015, I3M-GRyCAP-UPV, Universitat Politécnica de Valencia - 46022, Valencia, Spain
 				</h5>
 			</div>
 		</div>
