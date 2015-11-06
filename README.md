@@ -30,6 +30,8 @@ This repository only includes the VMRC web client. Additional packages available
 
 You will require a running instance of the VMRC service and the vmrc-client API to compile this code and to connect from this web client.
 
+Alternatively, it is recommended that you deploy VMRC with the Web GUI via the corresponding [Docker image](https://hub.docker.com/r/grycap/vmrc-web)
+
 1. Features
 ============
 + Web-based GUI to interact with [VMRC](https://www.github.com/grycap/vmrc)
@@ -47,38 +49,38 @@ You will require a running instance of the VMRC service and the vmrc-client API 
  ```
  git clone https://github.com/grycap/vmrc-client.git
  ```
- 
+
  2. Make sure that the VMRC Server is up & running and listening at `http://your_ip:8080`
    * This is the default configuration if you followed the instructions when installing VMRC.
    * During compilation of the client, the service WSDL is dynamically accessed to create some classes by taking into account that `your_ip` is `localhost` otherwise it must be setted in `pom.xml` file.
- 
+
  3. Compile from sources with the command:
  ```
  mvn package
  ```
  The file $VMRC_CLIENT_LOCATION/target/vmrc-client.jar will be generated.
 
- 4. Install generated jar as a local maven dependency: 
+ 4. Install generated jar as a local maven dependency:
  ```
  mvn install -Dfile=vmrc-client.jar -DgroupId=org.grycap -DartifactId=vmrc-client -Dversion=2.1.2 -Dpackaging=jar
  ```
- 
+
  5. Clone the repository from GitHub
  ```
  git clone https://github.com/grycap/vmrc-web.git
  ```
- 
+
  6. Compile from sources with the command:
  ```
  mvn package
  ```
  The file $VMRC_WEB_LOCATION/target/vmrc-web-gui.war will be generated.
- 
+
  7. Deploy vmrc-web-gui.war into Apache Tomcat (simply drop the war file into Tomcat's webapps folder).
- 
+
  8. Start Apache Tomcat
    + $TOMCAT_HOME/bin/startup.sh
- 
+
  9. VMRC web client should be available at http://your_ip:8080/vmrc/vmrc
 
 4. Usage
