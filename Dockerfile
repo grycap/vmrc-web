@@ -55,14 +55,12 @@ RUN cp $CATALINA_HOME/vmrc/target/vmrc.war $CATALINA_HOME/webapps
 
 WORKDIR $CATALINA_HOME
 
-# for vmrc-client 
-RUN git clone https://github.com/grycap/vmrc-client.git 
+# for vmrc-client
+RUN git clone https://github.com/grycap/vmrc-client.git
 
-WORKDIR $CATALINA_HOME/vmrc-client 
+WORKDIR $CATALINA_HOME/vmrc-client
 
-RUN mvn package 
-
-RUN mvn install -Dfile=vmrc-client.jar -DgroupId=org.grycap -DartifactId=vmrc-client -Dversion=2.1.2 -Dpackaging=jar
+RUN $CATALINA_HOME/bin/startup.sh && mvn package && mvn install -Dfile=vmrc-client.jar -DgroupId=org.grycap -DartifactId=vmrc-client -Dversion=2.1.2 -Dpackaging=jar
 
 WORKDIR $CATALINA_HOME
 
